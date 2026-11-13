@@ -54,12 +54,26 @@ Architecture diagram: `reports/architecture.png`. DAG: `dags/recommendation_dag.
 ```bash
 cd ~ && rm -f recommendation-pipeline-final.zip
 zip -qr recommendation-pipeline-final.zip recommendation-pipeline \
-  -x "recommendation-pipeline/.venv/*" "recommendation-pipeline/.venv-airflow/*" "recommendation-pipeline/.airflow/*" \
-     "recommendation-pipeline/models/*" "recommendation-pipeline/data/*/raw/*" "recommendation-pipeline/mlruns/*/*/artifacts/*" "*/__pycache__/*"
-cp recommendation-pipeline-final.zip /mnt/c/Users/WINUSER/Desktop/        # ~50 MB; needs: sudo apt install -y zip
+  -x "recommendation-pipeline/.git/*" "recommendation-pipeline/.venv/*" "recommendation-pipeline/.venv-airflow/*" "recommendation-pipeline/.airflow/*" "*/__pycache__/*"
+cp recommendation-pipeline-final.zip /mnt/c/Users/WINUSER/Desktop/        # needs: sudo apt install -y zip
+ls -lh recommendation-pipeline-final.zip                                  # includes data and models: roughly 100-250 MB
+# smaller variant (about 50 MB): also exclude  "recommendation-pipeline/models/*" "recommendation-pipeline/data/*/raw/*" "recommendation-pipeline/data/*/_download/*" "recommendation-pipeline/mlruns/*/*/artifacts/*"
 unzip -l recommendation-pipeline-final.zip | grep -E "final_report|airflow_successful_run"
 ```
 Copy the PDF on its own with `cp reports/movielens1m/final_report.pdf /mnt/c/Users/WINUSER/Desktop/` (if Windows says "Permission denied", an older file of that name is open - close it or pick a new name).
+
+## Publish to GitHub (private repo, data included)
+Create an empty **private** repository on github.com first, then:
+```bash
+cd ~/recommendation-pipeline
+printf '%s\n' ".venv/" ".venv-airflow/" ".airflow/" "__pycache__/" "*.pyc" ".pytest_cache/" > .gitignore
+git init -b main                      # skip if .git already exists
+git config user.name "<your name>" && git config user.email "<your email>"
+git add -A && git commit -m "Recommendation pipeline - final version"
+git remote add origin https://github.com/<user>/<repo>.git
+git push -u origin main               # username + personal access token as password (never paste the token anywhere else)
+```
+GitHub rejects single files over 100 MB (the largest here, a Feast `online_store.db`, is about 58 MB). Keep the repo private: the MovieLens licence forbids redistribution.
 
 ## Repeat run
 `bash scripts/clean_outputs.sh` (add `--airflow` to reset the Airflow database too) wipes generated files only. `run_all.sh` does this for you.

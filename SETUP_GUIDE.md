@@ -330,8 +330,8 @@ It runs all tasks once in order and ends with `DagRun Finished: ... state=succes
 7. Copy it into the project (in a *second* Ubuntu terminal):
    ```bash
    cp "/mnt/c/Users/WINUSER/Pictures/Screenshots/airflow_successful_run.png" ~/recommendation-pipeline/reports/movielens1m/figures/airflow_successful_run.png
-   (If you ran the synthetic report too, also copy it to `reports/figures/` so that report embeds it. Win+Shift+S only copies the image to the clipboard: click the pop-up and Save, or paste into Paint and save as PNG.)
    ```
+   (If you ran the synthetic report too, also copy it to `reports/figures/` so that report embeds it. Win+Shift+S only copies the image to the clipboard: click the pop-up and Save, or paste into Paint and save as PNG.)
    (Adjust the path to wherever Windows saved it; run `ls /mnt/c/Users/WINUSER/Pictures/Screenshots/` to see.)
 8. Stop Airflow in the first terminal with **Ctrl+C**.
 
@@ -379,11 +379,10 @@ Copy everything to Windows (e.g. as one zip on your Desktop):
 ```bash
 cd ~
 zip -qr recommendation-pipeline-final.zip recommendation-pipeline \
-  -x "recommendation-pipeline/.venv/*" "recommendation-pipeline/.venv-airflow/*" "recommendation-pipeline/.airflow/*" \
-     "recommendation-pipeline/models/*" "recommendation-pipeline/data/*/raw/*" "recommendation-pipeline/mlruns/*/*/artifacts/*" "*/__pycache__/*"
+  -x "recommendation-pipeline/.git/*" "recommendation-pipeline/.venv/*" "recommendation-pipeline/.venv-airflow/*" "recommendation-pipeline/.airflow/*" "*/__pycache__/*"
 cp recommendation-pipeline-final.zip /mnt/c/Users/WINUSER/Desktop/
 ```
-(The excludes keep out the virtual environments, the model files and the raw data, which are huge and can be regenerated. Expect roughly 50 MB; to get a few MB also exclude `recommendation-pipeline/data/*`, `mlruns/*` and `feature_repo*/*`. If Windows says "Permission denied" when copying, an older file with that name is open in a viewer - close it or use a new file name.)
+(The excludes keep out `.git` and the virtual environments, which are huge. The zip then contains data and models (roughly 100-250 MB); for about 50 MB also exclude `recommendation-pipeline/models/*`, `recommendation-pipeline/data/*/raw/*`, `recommendation-pipeline/data/*/_download/*` and `recommendation-pipeline/mlruns/*/*/artifacts/*`. If Windows says "Permission denied" when copying, an older file with that name is open in a viewer - close it or use a new file name.)
 
 ---
 

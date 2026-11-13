@@ -19,7 +19,7 @@ DMML Assignment 2 — movie recommender with a reproducible, orchestrated pipeli
 
 > **Verified status.** The full pipeline (all 10 tasks, 4 models) has been run end to end with the real tools - Great Expectations 1.24.1, Feast, scikit-surprise,
 > MLflow 2.22.5, Parquet storage and Apache Airflow 2.10.5 (WSL2 / Ubuntu 22.04, Python 3.11) - on the synthetic dataset and on MovieLens 1M.
-> The repository ships **without generated outputs** (data, models, reports, MLflow runs): running the pipeline creates them.
+> This repository also contains the outputs of those verified runs (data, models, reports, MLflow runs, screenshots, final report PDFs under `reports/` and `reports/movielens1m/`); running `scripts/run_all.sh` regenerates them (and deletes `reports/` first).
 > `configs/config.fallback.yaml` (CSV, lightweight validation, no Feast/Surprise) exists only for quick checks and for the unit tests.
 
 ## One-command run (after the one-time setup below)
@@ -187,7 +187,7 @@ What the converter and `config.movielens.yaml` take care of
 * Item-kNN builds its similarity matrix in chunks, so ~10k movies fit in memory.
 * The converter and the MovieLens code path are covered by unit tests on mock files in both real layouts, and have been run end to end on the downloaded `ml-latest-small` and `ml-1m` data.
 
-MovieLens data is © GroupLens Research: free for research/education, **not** to be redistributed (so it is not included here). Cite: F. M. Harper & J. A. Konstan, "The MovieLens Datasets: History and Context", ACM TiiS 5(4), 2015.
+MovieLens data is © GroupLens Research: free for research/education, **not** to be redistributed. This repository is private and contains the downloaded and processed copies for coursework evaluation only - do not make it public. Cite: F. M. Harper & J. A. Konstan, "The MovieLens Datasets: History and Context", ACM TiiS 5(4), 2015.
 
 ## Synthetic data (default)
 A **seeded synthetic MovieLens-style dataset** is generated on first run (2,000 users, 900 movies, ~60k ratings, ~8 % deliberately corrupted rows; see `src/ingestion/generate_synthetic.py` and `data/raw/synthetic_generation_log.json`). To bring your own CSVs instead, set `ingestion.source: csv` and place `users.csv`, `items.csv`, `interactions.csv` (columns in `src/ingestion/ingest.py`) in `data/raw/`.
