@@ -1,0 +1,4 @@
+2026-11-13 06:48:33,960 | INFO    | src.orchestration | START train_item_knn (attempt 1/2)
+2026-11-13 06:48:34,044 | INFO    | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-pipeline)
+2026-11-13 06:48:40,627 | INFO    | src.training | Trained item_knn with {'model': 'item_knn', 'n_neighbors': 100, 'shrink': 20, 'similarity': 'cosine(liked)'} in 6.7s (tracker run 5cd85a7740814867b80c30be5c4cca5a)
+2026-11-13 06:48:40,628 | INFO    | src.orchestration | SUCCESS train_item_knn in 6.7s

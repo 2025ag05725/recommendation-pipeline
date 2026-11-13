@@ -1,0 +1,18 @@
+# Project environment - use Python 3.11 (best wheel availability for scikit-surprise / feast / great-expectations).
+# Airflow is NOT installed here: it has conflicting pins and lives in its own virtualenv (see README, step 5).
+numpy>=1.26,<2            # <2: required by scikit-surprise and feast
+pandas>=2.1,<2.3
+scipy>=1.11,<1.14
+pyarrow>=14,<19           # Parquet storage + Feast file sources
+PyYAML>=6.0
+matplotlib>=3.8
+
+great-expectations>=1.3,<2   # data validation (GX Core 1.x API)
+feast>=0.40,<0.50            # feature registry, offline + online serving
+scikit-surprise>=1.1.4       # SVD rating model (compiles C code: needs a C compiler, or use conda - see README)
+mlflow>=2.14,<3              # experiment tracking
+
+pytest>=8.0
+# only for regenerating the screenshot / PDF report (scripts/):
+playwright>=1.40
+reportlab>=4.0

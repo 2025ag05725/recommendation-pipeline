@@ -1,0 +1,6 @@
+artifact_location: file:///home/jaino/recommendation-pipeline/mlruns/476041280523956888
+creation_time: 1794532744246
+experiment_id: '476041280523956888'
+last_update_time: 1794532744246
+lifecycle_stage: active
+name: recsys-movielens-1m

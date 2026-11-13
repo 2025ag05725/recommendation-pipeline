@@ -1,0 +1,30 @@
+# Real MovieLens run. Inherits everything from config.yaml (Parquet, Great Expectations, Feast, Surprise, MLflow, ...)
+# and only overrides what differs. Separate folders / Feast repo / MLflow experiment keep it apart from the synthetic run.
+#
+#   python scripts/prepare_movielens.py --dataset ml-latest-small
+#   python run_pipeline.py --config configs/config.movielens.yaml
+extends: config.yaml
+
+paths:
+  raw: data/movielens/raw
+  processed: data/movielens/processed
+  features: data/movielens/features
+  errors: data/movielens/errors
+  models: models/movielens
+  reports: reports/movielens
+  logs: logs/movielens
+
+ingestion:
+  source: csv                  # use the files written by scripts/prepare_movielens.py
+
+validation:
+  min_valid_date: "1990-01-01" # MovieLens ratings date from 1995 onwards (the synthetic default of 2015 would reject them)
+  release_year_min: 1870
+  max_error_rate: 0.15
+
+features:
+  feast_repo: feature_repo_movielens
+
+tracking:
+  experiment: recsys-movielens
+  local_dir: mlruns_local

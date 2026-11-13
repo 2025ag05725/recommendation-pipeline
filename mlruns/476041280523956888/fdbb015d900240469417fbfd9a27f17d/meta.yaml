@@ -1,0 +1,15 @@
+artifact_uri: file:///home/jaino/recommendation-pipeline/mlruns/476041280523956888/fdbb015d900240469417fbfd9a27f17d/artifacts
+end_time: 1794532961890
+entry_point_name: ''
+experiment_id: '476041280523956888'
+lifecycle_stage: active
+run_id: fdbb015d900240469417fbfd9a27f17d
+run_name: surprise_svd
+run_uuid: fdbb015d900240469417fbfd9a27f17d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1794532897634
+status: 3
+tags: []
+user_id: unknown

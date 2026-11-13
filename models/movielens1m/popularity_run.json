@@ -1,0 +1,9 @@
+{
+  "run_id": "f1343ce4b4af426ea2d9015a2271bb24",
+  "model": "popularity",
+  "params": {
+    "model": "popularity",
+    "ranking": "item_popularity_count (+ bayes tie-break)",
+    "rating_head": "item_bayes_rating"
+  }
+}

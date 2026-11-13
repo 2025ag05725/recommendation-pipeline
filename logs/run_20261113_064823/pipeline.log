@@ -1,0 +1,74 @@
+2026-11-13 06:48:23,724 | INFO    | MainThread       | src.orchestration | Run run_20261113_064823 | DAG levels: [['ingest'], ['validate'], ['prepare'], ['transform'], ['build_features'], ['train_hybrid_svd', 'train_item_knn', 'train_popularity', 'train_surprise_svd'], ['evaluate']] | selected: ['build_features', 'evaluate', 'ingest', 'prepare', 'train_hybrid_svd', 'train_item_knn', 'train_popularity', 'train_surprise_svd', 'transform', 'validate']
+2026-11-13 06:48:25,259 | INFO    | MainThread       | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-pipeline)
+2026-11-13 06:48:25,260 | INFO    | task:ingest      | src.orchestration | START ingest (attempt 1/2)
+2026-11-13 06:48:26,568 | INFO    | task:ingest      | src.ingestion.generate | Clean synthetic tables: users=2000 items=900 interactions=62996
+2026-11-13 06:48:26,970 | INFO    | task:ingest      | src.ingestion.generate | Wrote raw CSVs to /home/jaino/recommendation-pipeline/data/raw (users=2010 items=904 interactions=64571)
+2026-11-13 06:48:26,978 | INFO    | task:ingest      | src.ingestion | Ingested users         rows=2010   cols=['user_id', 'age', 'gender', 'country', 'signup_date']
+2026-11-13 06:48:26,980 | INFO    | task:ingest      | src.ingestion | Ingested items         rows=904    cols=['item_id', 'title', 'genres', 'release_year']
+2026-11-13 06:48:27,013 | INFO    | task:ingest      | src.ingestion | Ingested interactions  rows=64571  cols=['user_id', 'item_id', 'rating', 'timestamp']
+2026-11-13 06:48:27,014 | INFO    | task:ingest      | src.orchestration | SUCCESS ingest in 1.8s
+2026-11-13 06:48:27,015 | INFO    | task:validate    | src.orchestration | START validate (attempt 1/2)
+2026-11-13 06:48:30,696 | INFO    | task:validate    | src.validation | Validation engine: great_expectations 1.24.1
+2026-11-13 06:48:30,734 | INFO    | task:validate    | src.validation | users         in=2010   valid=1992   rejected=18    (0.90%) warning_rows=71
+2026-11-13 06:48:30,742 | INFO    | task:validate    | src.validation | items         in=904    valid=900    rejected=4     (0.44%) warning_rows=19
+2026-11-13 06:48:30,858 | INFO    | task:validate    | src.validation | interactions  in=64571  valid=59459  rejected=5112  (7.92%) warning_rows=1914
+2026-11-13 06:48:30,858 | ERROR   | task:validate    | src.validation | [users] duplicate_user_id            ERROR   failed=10  (user_id must be unique (first occurrence kept))
+2026-11-13 06:48:30,858 | ERROR   | task:validate    | src.validation | [users] invalid_signup_date          ERROR   failed=8  (signup_date must be a parseable date)
+2026-11-13 06:48:30,858 | WARNING | task:validate    | src.validation | [users] missing_age                  WARNING failed=31  (age should not be null (imputed in preparation))
+2026-11-13 06:48:30,858 | WARNING | task:validate    | src.validation | [users] invalid_age                  WARNING failed=12  (age must be numeric in [13, 100])
+2026-11-13 06:48:30,859 | WARNING | task:validate    | src.validation | [users] missing_gender               WARNING failed=8  (gender should not be null)
+2026-11-13 06:48:30,859 | WARNING | task:validate    | src.validation | [users] missing_country              WARNING failed=20  (country should not be null)
+2026-11-13 06:48:30,859 | ERROR   | task:validate    | src.validation | [items] duplicate_item_id            ERROR   failed=4  (item_id must be unique (first occurrence kept))
+2026-11-13 06:48:30,859 | WARNING | task:validate    | src.validation | [items] missing_title                WARNING failed=4  (title should not be null)
+2026-11-13 06:48:30,859 | WARNING | task:validate    | src.validation | [items] missing_genres               WARNING failed=9  (genres should not be null)
+2026-11-13 06:48:30,859 | WARNING | task:validate    | src.validation | [items] invalid_release_year         WARNING failed=7  (release_year must be an integer in [1900, 2026])
+2026-11-13 06:48:30,859 | ERROR   | task:validate    | src.validation | [interactions] missing_user_id              ERROR   failed=130  (user_id must not be null)
+2026-11-13 06:48:30,859 | ERROR   | task:validate    | src.validation | [interactions] missing_rating               ERROR   failed=632  (rating must not be null)
+2026-11-13 06:48:30,859 | ERROR   | task:validate    | src.validation | [interactions] missing_timestamp            ERROR   failed=92  (timestamp must not be null)
+2026-11-13 06:48:30,859 | ERROR   | task:validate    | src.validation | [interactions] invalid_rating_type          ERROR   failed=131  (rating must be numeric)
+2026-11-13 06:48:30,859 | ERROR   | task:validate    | src.validation | [interactions] rating_out_of_range          ERROR   failed=508  (rating must be within [0.5, 5.0])
+2026-11-13 06:48:30,859 | ERROR   | task:validate    | src.validation | [interactions] rating_off_scale             ERROR   failed=124  (rating must be a multiple of 0.5)
+2026-11-13 06:48:30,860 | ERROR   | task:validate    | src.validation | [interactions] invalid_timestamp_format     ERROR   failed=448  (timestamp must be parseable)
+2026-11-13 06:48:30,860 | ERROR   | task:validate    | src.validation | [interactions] timestamp_in_future          ERROR   failed=326  (timestamp must not exceed reference date)
+2026-11-13 06:48:30,860 | ERROR   | task:validate    | src.validation | [interactions] timestamp_too_old            ERROR   failed=194  (timestamp must be >= 2015-01-01)
+2026-11-13 06:48:30,860 | ERROR   | task:validate    | src.validation | [interactions] orphan_user_id               ERROR   failed=818  (user_id must exist in valid users)
+2026-11-13 06:48:30,860 | ERROR   | task:validate    | src.validation | [interactions] orphan_item_id               ERROR   failed=651  (item_id must exist in valid items)
+2026-11-13 06:48:30,860 | ERROR   | task:validate    | src.validation | [interactions] interaction_before_signup    ERROR   failed=377  (timestamp must be >= the user's signup_date)
+2026-11-13 06:48:30,860 | ERROR   | task:validate    | src.validation | [interactions] exact_duplicate_row          ERROR   failed=1003  (identical (user,item,rating,timestamp) rows are duplicates (first kept))
+2026-11-13 06:48:30,860 | WARNING | task:validate    | src.validation | [interactions] duplicate_user_item_pair     WARNING failed=1914  (same user rated same item more than once (latest kept in preparation))
+2026-11-13 06:48:30,864 | INFO    | task:validate    | src.orchestration | SUCCESS validate in 3.8s
+2026-11-13 06:48:30,865 | INFO    | task:prepare     | src.orchestration | START prepare (attempt 1/2)
+2026-11-13 06:48:31,033 | INFO    | task:prepare     | src.preparation | Prepared: {'users_age_imputed': 42, 'users_gender_filled': 8, 'users_country_filled': 20, 'items_title_filled': 4, 'items_genres_unknown': 9, 'items_year_imputed': 7, 'interactions_duplicate_pairs_dropped': 442, 'users': 1992, 'items': 900, 'interactions': 59017}
+2026-11-13 06:48:31,034 | INFO    | task:prepare     | src.orchestration | SUCCESS prepare in 0.2s
+2026-11-13 06:48:31,035 | INFO    | task:transform   | src.orchestration | START transform (attempt 1/2)
+2026-11-13 06:48:31,137 | INFO    | task:transform   | src.transformation | Split: {'train_core': 41311, 'val': 5902, 'train': 47213, 'test': 11804}
+2026-11-13 06:48:31,137 | INFO    | task:transform   | src.orchestration | SUCCESS transform in 0.1s
+2026-11-13 06:48:31,139 | INFO    | task:build_features | src.orchestration | START build_features (attempt 1/2)
+2026-11-13 06:48:33,916 | INFO    | task:build_features | src.features.feast | Feast: applied entities/feature views and materialised to online store (as_of=2025-10-12 17:14:36+00:00)
+2026-11-13 06:48:33,954 | INFO    | task:build_features | src.features.feast | Feast parity check passed: {'user_features': '50 entities x 30 features identical', 'item_features': '50 entities x 26 features identical'}
+2026-11-13 06:48:33,957 | INFO    | task:build_features | src.features | Feature store: 1992 user rows x 30 cols, 900 item rows x 26 cols; catalog entries=23
+2026-11-13 06:48:33,957 | INFO    | task:build_features | src.orchestration | SUCCESS build_features in 2.8s
+2026-11-13 06:48:33,958 | INFO    | task:train_hybrid_svd | src.orchestration | START train_hybrid_svd (attempt 1/2)
+2026-11-13 06:48:33,960 | INFO    | task:train_item_knn | src.orchestration | START train_item_knn (attempt 1/2)
+2026-11-13 06:48:33,961 | INFO    | task:train_popularity | src.orchestration | START train_popularity (attempt 1/2)
+2026-11-13 06:48:34,007 | INFO    | task:train_popularity | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-pipeline)
+2026-11-13 06:48:34,022 | INFO    | task:train_hybrid_svd | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-pipeline)
+2026-11-13 06:48:34,044 | INFO    | task:train_item_knn | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-pipeline)
+2026-11-13 06:48:35,042 | INFO    | task:train_popularity | src.training | Trained popularity with {'model': 'popularity', 'ranking': 'item_popularity_count (+ bayes tie-break)', 'rating_head': 'item_bayes_rating'} in 1.1s (tracker run 54002a5f189b4629963686b6d06e9ca9)
+2026-11-13 06:48:35,043 | INFO    | task:train_popularity | src.orchestration | SUCCESS train_popularity in 1.1s
+2026-11-13 06:48:35,043 | INFO    | task:train_surprise_svd | src.orchestration | START train_surprise_svd (attempt 1/2)
+2026-11-13 06:48:35,177 | INFO    | task:train_surprise_svd | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-pipeline)
+2026-11-13 06:48:40,627 | INFO    | task:train_item_knn | src.training | Trained item_knn with {'model': 'item_knn', 'n_neighbors': 100, 'shrink': 20, 'similarity': 'cosine(liked)'} in 6.7s (tracker run 5cd85a7740814867b80c30be5c4cca5a)
+2026-11-13 06:48:40,628 | INFO    | task:train_item_knn | src.orchestration | SUCCESS train_item_knn in 6.7s
+2026-11-13 06:48:41,901 | INFO    | task:train_surprise_svd | src.training | Trained surprise_svd with {'model': 'surprise_svd', 'library': 'scikit-surprise SVD', 'n_factors': 20, 'reg_all': 0.02, 'n_epochs': 30, 'lr_all': 0.005} in 6.9s (tracker run 2feee5fe836845d3bb9e05cd86805be7)
+2026-11-13 06:48:41,902 | INFO    | task:train_surprise_svd | src.orchestration | SUCCESS train_surprise_svd in 6.9s
+2026-11-13 06:48:48,185 | INFO    | task:train_hybrid_svd | src.training | Trained hybrid_svd with {'model': 'hybrid_svd', 'k_implicit': 16, 'k_explicit': 16, 'alpha': 0.5, 'bias_reg': 10} in 14.2s (tracker run b8cbfa53659e42f8b6ca44ce55533da9)
+2026-11-13 06:48:48,186 | INFO    | task:train_hybrid_svd | src.orchestration | SUCCESS train_hybrid_svd in 14.2s
+2026-11-13 06:48:48,188 | INFO    | task:evaluate    | src.orchestration | START evaluate (attempt 1/2)
+2026-11-13 06:48:48,199 | INFO    | task:evaluate    | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-pipeline)
+2026-11-13 06:48:48,400 | INFO    | task:evaluate    | src.evaluation | popularity  {'precision@10': 0.0255, 'recall@10': 0.0673, 'ndcg@10': 0.0497, 'coverage': 0.0467, 'diversity': 0.9057, 'n_eval_users': 1446, 'n_users_excluded_no_history': 1, 'rmse': 0.9184, 'mae': 0.7575}
+2026-11-13 06:48:48,575 | INFO    | task:evaluate    | src.evaluation | item_knn    {'precision@10': 0.0703, 'recall@10': 0.1795, 'ndcg@10': 0.1438, 'coverage': 0.4656, 'diversity': 0.5218, 'n_eval_users': 1446, 'n_users_excluded_no_history': 1}
+2026-11-13 06:48:48,818 | INFO    | task:evaluate    | src.evaluation | hybrid_svd  {'precision@10': 0.0763, 'recall@10': 0.1921, 'ndcg@10': 0.1539, 'coverage': 0.5478, 'diversity': 0.4425, 'n_eval_users': 1446, 'n_users_excluded_no_history': 1, 'rmse': 0.8201, 'mae': 0.6619}
+2026-11-13 06:48:49,044 | INFO    | task:evaluate    | src.evaluation | surprise_svd {'precision@10': 0.0102, 'recall@10': 0.0233, 'ndcg@10': 0.0154, 'coverage': 0.1, 'diversity': 0.8543, 'n_eval_users': 1446, 'n_users_excluded_no_history': 1, 'rmse': 0.8307, 'mae': 0.6654}
+2026-11-13 06:48:49,945 | INFO    | task:evaluate    | src.orchestration | SUCCESS evaluate in 1.8s
+2026-11-13 06:48:50,060 | INFO    | MainThread       | src.orchestration | Run run_20261113_064823 finished: SUCCESS in 26.2s

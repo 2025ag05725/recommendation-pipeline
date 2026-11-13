@@ -1,0 +1,3 @@
+2026-11-13 06:48:31,035 | INFO    | src.orchestration | START transform (attempt 1/2)
+2026-11-13 06:48:31,137 | INFO    | src.transformation | Split: {'train_core': 41311, 'val': 5902, 'train': 47213, 'test': 11804}
+2026-11-13 06:48:31,137 | INFO    | src.orchestration | SUCCESS transform in 0.1s

@@ -1,0 +1,255 @@
+{
+  "run_id": "run_20261113_064823",
+  "success": true,
+  "seconds": 26.22,
+  "levels": [
+    [
+      "ingest"
+    ],
+    [
+      "validate"
+    ],
+    [
+      "prepare"
+    ],
+    [
+      "transform"
+    ],
+    [
+      "build_features"
+    ],
+    [
+      "train_hybrid_svd",
+      "train_item_knn",
+      "train_popularity",
+      "train_surprise_svd"
+    ],
+    [
+      "evaluate"
+    ]
+  ],
+  "started": "2026-11-13T06:48:23",
+  "engines": {
+    "storage": "parquet",
+    "validation": "great_expectations",
+    "features": "feast",
+    "tracking": "mlflow",
+    "data_source": "synthetic",
+    "surprise_model": true
+  },
+  "tasks": {
+    "ingest": {
+      "status": "success",
+      "start": "2026-11-13T06:48:25",
+      "attempts": 1,
+      "result": {
+        "users": 2010,
+        "items": 904,
+        "interactions": 64571
+      },
+      "seconds": 1.75,
+      "end": "2026-11-13T06:48:27",
+      "deps": [],
+      "stage": "Data Ingestion",
+      "description": "Load/generate raw CSVs, write manifest"
+    },
+    "validate": {
+      "status": "success",
+      "start": "2026-11-13T06:48:27",
+      "attempts": 1,
+      "result": {
+        "gate_passed": true,
+        "users_rejected": 18,
+        "items_rejected": 4,
+        "interactions_rejected": 5112
+      },
+      "seconds": 3.85,
+      "end": "2026-11-13T06:48:30",
+      "deps": [
+        "ingest"
+      ],
+      "stage": "Data Validation",
+      "description": "Quality checks, quarantine bad rows, quality gate"
+    },
+    "prepare": {
+      "status": "success",
+      "start": "2026-11-13T06:48:30",
+      "attempts": 1,
+      "result": {
+        "users_age_imputed": 42,
+        "users_gender_filled": 8,
+        "users_country_filled": 20,
+        "items_title_filled": 4,
+        "items_genres_unknown": 9,
+        "items_year_imputed": 7,
+        "interactions_duplicate_pairs_dropped": 442,
+        "users": 1992,
+        "items": 900,
+        "interactions": 59017
+      },
+      "seconds": 0.17,
+      "end": "2026-11-13T06:48:31",
+      "deps": [
+        "validate"
+      ],
+      "stage": "Data Preparation",
+      "description": "Clean, impute, standardise, de-duplicate"
+    },
+    "transform": {
+      "status": "success",
+      "start": "2026-11-13T06:48:31",
+      "attempts": 1,
+      "result": {
+        "train": 47213,
+        "val": 5902,
+        "test": 11804,
+        "matrix_density": 0.02633
+      },
+      "seconds": 0.1,
+      "end": "2026-11-13T06:48:31",
+      "deps": [
+        "prepare"
+      ],
+      "stage": "Data Transformation",
+      "description": "Time-based split, activity/popularity tables, matrix"
+    },
+    "build_features": {
+      "status": "success",
+      "start": "2026-11-13T06:48:31",
+      "attempts": 1,
+      "result": {
+        "feature_views": [
+          "user_features",
+          "item_features"
+        ],
+        "materialized_as_of": "2025-10-12 17:14:36+00:00",
+        "parity": {
+          "user_features": "50 entities x 30 features identical",
+          "item_features": "50 entities x 26 features identical"
+        },
+        "user_feature_cols": 30,
+        "item_feature_cols": 26,
+        "catalog_entries": 23
+      },
+      "seconds": 2.82,
+      "end": "2026-11-13T06:48:33",
+      "deps": [
+        "transform"
+      ],
+      "stage": "Feature Management",
+      "description": "Materialise feature store + feature catalog"
+    },
+    "train_popularity": {
+      "status": "success",
+      "start": "2026-11-13T06:48:33",
+      "attempts": 1,
+      "result": {
+        "model": "popularity",
+        "run_id": "54002a5f189b4629963686b6d06e9ca9",
+        "params": {
+          "model": "popularity",
+          "ranking": "item_popularity_count (+ bayes tie-break)",
+          "rating_head": "item_bayes_rating"
+        }
+      },
+      "seconds": 1.08,
+      "end": "2026-11-13T06:48:35",
+      "deps": [
+        "build_features"
+      ],
+      "stage": "Model Training",
+      "description": "Baseline popularity recommender"
+    },
+    "train_item_knn": {
+      "status": "success",
+      "start": "2026-11-13T06:48:33",
+      "attempts": 1,
+      "result": {
+        "model": "item_knn",
+        "run_id": "5cd85a7740814867b80c30be5c4cca5a",
+        "params": {
+          "model": "item_knn",
+          "n_neighbors": 100,
+          "shrink": 20,
+          "similarity": "cosine(liked)"
+        }
+      },
+      "seconds": 6.67,
+      "end": "2026-11-13T06:48:40",
+      "deps": [
+        "build_features"
+      ],
+      "stage": "Model Training",
+      "description": "Item-based collaborative filtering"
+    },
+    "train_hybrid_svd": {
+      "status": "success",
+      "start": "2026-11-13T06:48:33",
+      "attempts": 1,
+      "result": {
+        "model": "hybrid_svd",
+        "run_id": "b8cbfa53659e42f8b6ca44ce55533da9",
+        "params": {
+          "model": "hybrid_svd",
+          "k_implicit": 16,
+          "k_explicit": 16,
+          "alpha": 0.5,
+          "bias_reg": 10
+        }
+      },
+      "seconds": 14.23,
+      "end": "2026-11-13T06:48:48",
+      "deps": [
+        "build_features"
+      ],
+      "stage": "Model Training",
+      "description": "Hybrid SVD (CF + content) recommender"
+    },
+    "train_surprise_svd": {
+      "status": "success",
+      "start": "2026-11-13T06:48:35",
+      "attempts": 1,
+      "result": {
+        "model": "surprise_svd",
+        "run_id": "2feee5fe836845d3bb9e05cd86805be7",
+        "params": {
+          "model": "surprise_svd",
+          "library": "scikit-surprise SVD",
+          "n_factors": 20,
+          "reg_all": 0.02,
+          "n_epochs": 30,
+          "lr_all": 0.005
+        }
+      },
+      "seconds": 6.86,
+      "end": "2026-11-13T06:48:41",
+      "deps": [
+        "build_features"
+      ],
+      "stage": "Model Training",
+      "description": "scikit-surprise SVD rating model"
+    },
+    "evaluate": {
+      "status": "success",
+      "start": "2026-11-13T06:48:48",
+      "attempts": 1,
+      "result": {
+        "best_ndcg_model": "hybrid_svd",
+        "ndcg@10_popularity": 0.0497,
+        "ndcg@10_item_knn": 0.1438,
+        "ndcg@10_hybrid_svd": 0.1539,
+        "ndcg@10_surprise_svd": 0.0154
+      },
+      "seconds": 1.76,
+      "end": "2026-11-13T06:48:49",
+      "deps": [
+        "train_popularity",
+        "train_item_knn",
+        "train_hybrid_svd",
+        "train_surprise_svd"
+      ],
+      "stage": "Model Evaluation",
+      "description": "Test-set metrics + comparison table"
+    }
+  }
+}

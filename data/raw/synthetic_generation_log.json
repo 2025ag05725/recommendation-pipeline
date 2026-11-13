@@ -1,0 +1,37 @@
+{
+  "seed": 42,
+  "injected_defects": {
+    "users": {
+      "missing_age": 30,
+      "invalid_age": 12,
+      "missing_country": 20,
+      "missing_gender": 8,
+      "bad_signup_date": 8,
+      "duplicate_rows": 10
+    },
+    "items": {
+      "missing_title": 4,
+      "missing_genres": 9,
+      "invalid_year": 7,
+      "duplicate_rows": 4
+    },
+    "interactions": {
+      "before_signup": 189,
+      "missing_rating": 630,
+      "invalid_rating": 756,
+      "bad_timestamp": 441,
+      "future_timestamp": 315,
+      "ancient_timestamp": 189,
+      "orphan_user": 630,
+      "orphan_item": 630,
+      "missing_user": 126,
+      "exact_duplicates": 945,
+      "conflicting_duplicates": 630
+    }
+  },
+  "rows_written": {
+    "users": 2010,
+    "items": 904,
+    "interactions": 64571
+  }
+}

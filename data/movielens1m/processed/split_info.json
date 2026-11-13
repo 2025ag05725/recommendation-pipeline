@@ -1,0 +1,26 @@
+{
+  "val_cutoff": "2000-11-22T03:06:26",
+  "test_cutoff": "2000-12-02T14:52:18",
+  "rows": {
+    "train_core": 700144,
+    "val": 100020,
+    "train": 800164,
+    "test": 200045
+  },
+  "train_time_range": [
+    "2000-04-25T23:05:32",
+    "2000-12-02T14:51:59"
+  ],
+  "test_time_range": [
+    "2000-12-02T14:52:18",
+    "2003-02-28T17:49:50"
+  ],
+  "test_users": 1783,
+  "test_users_unseen_in_train": 640,
+  "test_items_unseen_in_train": 44,
+  "matrix_shape": [
+    6040,
+    3883
+  ],
+  "matrix_density": 0.03412
+}

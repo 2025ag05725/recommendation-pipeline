@@ -1,0 +1,29 @@
+# Feature Catalog
+
+Generated from `src/features/registry.py` (validated against the materialised feature tables on every run).
+
+| Feature | Entity | Type | Description | Computation | Used by |
+|---|---|---|---|---|---|
+| `user_activity_count` | user | int | Number of training interactions by the user. | count(interactions) per user_id | popularity fallback, cold-start flag |
+| `user_avg_rating` | user | float | Mean rating given by the user (global mean if no history). | mean(rating) per user_id | rating baseline, interaction feature |
+| `user_rating_std` | user | float | Std-dev of the user's ratings (0 if <2 ratings). | std(rating) per user_id | analysis |
+| `user_like_ratio` | user | float | Share of the user's ratings >= like_threshold. | mean(rating >= 4.0) | analysis |
+| `user_days_since_last_interaction` | user | float | Days between the user's latest interaction and the as-of time (days since signup if none). | (as_of - max(timestamp)) / 1 day | recency / churn analysis |
+| `user_tenure_days` | user | float | Days between signup and the as-of time. | (as_of - signup_date) / 1 day | analysis |
+| `user_preferred_genre` | user | category | Genre with the highest affinity share ('Unknown' if no liked items). | argmax(user_genre_affinity_*) | interaction feature (preferred-genre match) |
+| `user_age` | user | int | Age in years (imputed with median in preparation). | passthrough of users_clean.age | demographic context |
+| `user_age_group` | user | category | Age bucket: <25, 25-34, 35-44, 45-54, 55+. | pd.cut(age) | demographic context |
+| `user_gender` | user | category | Standardised gender code M/F/O/U. | passthrough of users_clean.gender | demographic context |
+| `user_country` | user | category | Upper-case country code or UNK. | passthrough of users_clean.country | demographic context |
+| `user_genre_affinity_*` | user | float (one per genre) | Share of the user's LIKED interactions that fall in each genre (rows sum to 1, all 0 if no likes). | liked(user x item) @ genre(item x genre), row-normalised | hybrid model (content signal) |
+| `item_popularity_count` | item | int | Number of training interactions with the item. | count(interactions) per item_id | popularity baseline |
+| `item_avg_rating` | item | float | Mean rating of the item (global mean if unseen). | mean(rating) per item_id | interaction feature |
+| `item_bayes_rating` | item | float | Shrunk mean rating: (n*mean + m*global_mean)/(n+m), m=bayes_prior_strength. | Bayesian average | popularity tie-break, rating baseline |
+| `item_like_ratio` | item | float | Share of the item's ratings >= like_threshold. | mean(rating >= 4.0) | analysis |
+| `item_days_since_last_interaction` | item | float | Days since anyone last interacted with the item (days since release if never). | (as_of - max(timestamp)) / 1 day | freshness analysis |
+| `item_age_years` | item | int | Years between release_year and the as-of year. | as_of.year - release_year | analysis |
+| `item_num_genres` | item | int | Number of genres tagged on the item. | count(genres) | content normalisation |
+| `item_genre_*` | item | int 0/1 (one per genre) | Multi-hot genre indicator. | genre in item.genres | hybrid model, diversity metric |
+| `ui_genre_affinity` | user_item | float | Mean of the user's genre affinity over the item's genres. | sum_g(affinity_ug * item_g) / num_genres | hybrid model ranking score |
+| `ui_preferred_genre_match` | user_item | int 0/1 | 1 if the item carries the user's preferred genre. | item_genre[user_preferred_genre] | analysis / re-ranking |
+| `ui_item_minus_user_avg` | user_item | float | item_avg_rating - user_avg_rating (does the item beat what this user usually gives?). | difference of two entity features | rating prediction analysis |

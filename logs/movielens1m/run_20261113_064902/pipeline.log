@@ -1,0 +1,50 @@
+2026-11-13 06:49:02,752 | INFO    | MainThread       | src.orchestration | Run run_20261113_064902 | DAG levels: [['ingest'], ['validate'], ['prepare'], ['transform'], ['build_features'], ['train_hybrid_svd', 'train_item_knn', 'train_popularity', 'train_surprise_svd'], ['evaluate']] | selected: ['build_features', 'evaluate', 'ingest', 'prepare', 'train_hybrid_svd', 'train_item_knn', 'train_popularity', 'train_surprise_svd', 'transform', 'validate']
+2026-11-13 06:49:04,246 | INFO    | MainThread       | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-movielens-1m)
+2026-11-13 06:49:04,247 | INFO    | task:ingest      | src.orchestration | START ingest (attempt 1/2)
+2026-11-13 06:49:04,255 | INFO    | task:ingest      | src.ingestion | Ingested users         rows=6040   cols=['user_id', 'age', 'gender', 'country', 'signup_date']
+2026-11-13 06:49:04,262 | INFO    | task:ingest      | src.ingestion | Ingested items         rows=3883   cols=['item_id', 'title', 'genres', 'release_year']
+2026-11-13 06:49:04,708 | INFO    | task:ingest      | src.ingestion | Ingested interactions  rows=1000209 cols=['user_id', 'item_id', 'rating', 'timestamp']
+2026-11-13 06:49:04,724 | INFO    | task:ingest      | src.orchestration | SUCCESS ingest in 0.5s
+2026-11-13 06:49:04,725 | INFO    | task:validate    | src.orchestration | START validate (attempt 1/2)
+2026-11-13 06:49:30,355 | INFO    | task:validate    | src.validation | Validation engine: great_expectations 1.24.1
+2026-11-13 06:49:30,389 | INFO    | task:validate    | src.validation | users         in=6040   valid=6040   rejected=0     (0.00%) warning_rows=6040
+2026-11-13 06:49:30,400 | INFO    | task:validate    | src.validation | items         in=3883   valid=3883   rejected=0     (0.00%) warning_rows=251
+2026-11-13 06:49:30,796 | INFO    | task:validate    | src.validation | interactions  in=1000209 valid=1000209 rejected=0     (0.00%) warning_rows=0
+2026-11-13 06:49:30,796 | WARNING | task:validate    | src.validation | [users] missing_country              WARNING failed=6040  (country should not be null)
+2026-11-13 06:49:30,797 | WARNING | task:validate    | src.validation | [items] unknown_genre                WARNING failed=251  (every genre token must be in the genre vocabulary)
+2026-11-13 06:49:30,818 | INFO    | task:validate    | src.orchestration | SUCCESS validate in 26.1s
+2026-11-13 06:49:30,819 | INFO    | task:prepare     | src.orchestration | START prepare (attempt 1/2)
+2026-11-13 06:49:32,556 | INFO    | task:prepare     | src.preparation | Prepared: {'users_age_imputed': 0, 'users_gender_filled': 0, 'users_country_filled': 6040, 'items_title_filled': 0, 'items_genres_unknown': 0, 'items_year_imputed': 0, 'interactions_duplicate_pairs_dropped': 0, 'users': 6040, 'items': 3883, 'interactions': 1000209}
+2026-11-13 06:49:32,557 | INFO    | task:prepare     | src.orchestration | SUCCESS prepare in 1.7s
+2026-11-13 06:49:32,558 | INFO    | task:transform   | src.orchestration | START transform (attempt 1/2)
+2026-11-13 06:49:33,398 | INFO    | task:transform   | src.transformation | Split: {'train_core': 700144, 'val': 100020, 'train': 800164, 'test': 200045}
+2026-11-13 06:49:33,398 | INFO    | task:transform   | src.orchestration | SUCCESS transform in 0.8s
+2026-11-13 06:49:33,399 | INFO    | task:build_features | src.orchestration | START build_features (attempt 1/2)
+2026-11-13 06:49:38,457 | INFO    | task:build_features | src.features.feast | Feast: applied entities/feature views and materialised to online store (as_of=2000-12-02 14:52:18+00:00)
+2026-11-13 06:49:38,495 | INFO    | task:build_features | src.features.feast | Feast parity check passed: {'user_features': '50 entities x 29 features identical', 'item_features': '50 entities x 25 features identical'}
+2026-11-13 06:49:38,499 | INFO    | task:build_features | src.features | Feature store: 6040 user rows x 29 cols, 3883 item rows x 25 cols; catalog entries=23
+2026-11-13 06:49:38,500 | INFO    | task:build_features | src.orchestration | SUCCESS build_features in 5.1s
+2026-11-13 06:49:38,502 | INFO    | task:train_hybrid_svd | src.orchestration | START train_hybrid_svd (attempt 1/2)
+2026-11-13 06:49:38,503 | INFO    | task:train_item_knn | src.orchestration | START train_item_knn (attempt 1/2)
+2026-11-13 06:49:38,503 | INFO    | task:train_popularity | src.orchestration | START train_popularity (attempt 1/2)
+2026-11-13 06:49:38,589 | INFO    | task:train_popularity | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-movielens-1m)
+2026-11-13 06:49:38,594 | INFO    | task:train_item_knn | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-movielens-1m)
+2026-11-13 06:49:38,603 | INFO    | task:train_hybrid_svd | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-movielens-1m)
+2026-11-13 06:49:39,392 | INFO    | task:train_popularity | src.training | Trained popularity with {'model': 'popularity', 'ranking': 'item_popularity_count (+ bayes tie-break)', 'rating_head': 'item_bayes_rating'} in 0.9s (tracker run cb81527e8d7e4ba8899a2595c658d79a)
+2026-11-13 06:49:39,393 | INFO    | task:train_popularity | src.orchestration | SUCCESS train_popularity in 0.9s
+2026-11-13 06:49:39,395 | INFO    | task:train_surprise_svd | src.orchestration | START train_surprise_svd (attempt 1/2)
+2026-11-13 06:49:39,484 | INFO    | task:train_surprise_svd | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-movielens-1m)
+2026-11-13 06:50:04,161 | INFO    | task:train_item_knn | src.training | Trained item_knn with {'model': 'item_knn', 'n_neighbors': 100, 'shrink': 5, 'similarity': 'cosine(liked)'} in 25.7s (tracker run 6bfe70ffe6ce43eea6f4b683b0f6b3a8)
+2026-11-13 06:50:04,161 | INFO    | task:train_item_knn | src.orchestration | SUCCESS train_item_knn in 25.7s
+2026-11-13 06:50:07,340 | INFO    | task:train_surprise_svd | src.training | Trained surprise_svd with {'model': 'surprise_svd', 'library': 'scikit-surprise SVD', 'n_factors': 20, 'reg_all': 0.02, 'n_epochs': 30, 'lr_all': 0.005} in 27.9s (tracker run 775bcea58ff1428aad89f93f4cf03b2f)
+2026-11-13 06:50:07,341 | INFO    | task:train_surprise_svd | src.orchestration | SUCCESS train_surprise_svd in 27.9s
+2026-11-13 06:50:22,314 | INFO    | task:train_hybrid_svd | src.training | Trained hybrid_svd with {'model': 'hybrid_svd', 'k_implicit': 16, 'k_explicit': 16, 'alpha': 0.0, 'bias_reg': 10} in 43.8s (tracker run 0a7995765bc444c4880db4783a1f20e1)
+2026-11-13 06:50:22,314 | INFO    | task:train_hybrid_svd | src.orchestration | SUCCESS train_hybrid_svd in 43.8s
+2026-11-13 06:50:22,321 | INFO    | task:evaluate    | src.orchestration | START evaluate (attempt 1/2)
+2026-11-13 06:50:22,341 | INFO    | task:evaluate    | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-movielens-1m)
+2026-11-13 06:50:22,737 | INFO    | task:evaluate    | src.evaluation | popularity  {'precision@10': 0.1996, 'recall@10': 0.0493, 'ndcg@10': 0.2145, 'coverage': 0.0353, 'diversity': 0.6524, 'n_eval_users': 1122, 'n_users_excluded_no_history': 640, 'rmse': 0.9688, 'mae': 0.7715}
+2026-11-13 06:50:23,134 | INFO    | task:evaluate    | src.evaluation | item_knn    {'precision@10': 0.2292, 'recall@10': 0.0588, 'ndcg@10': 0.25, 'coverage': 0.0592, 'diversity': 0.6926, 'n_eval_users': 1122, 'n_users_excluded_no_history': 640}
+2026-11-13 06:50:23,584 | INFO    | task:evaluate    | src.evaluation | hybrid_svd  {'precision@10': 0.2269, 'recall@10': 0.0671, 'ndcg@10': 0.2497, 'coverage': 0.129, 'diversity': 0.6625, 'n_eval_users': 1122, 'n_users_excluded_no_history': 640, 'rmse': 0.9425, 'mae': 0.7459}
+2026-11-13 06:50:24,027 | INFO    | task:evaluate    | src.evaluation | surprise_svd {'precision@10': 0.132, 'recall@10': 0.0364, 'ndcg@10': 0.1392, 'coverage': 0.1586, 'diversity': 0.7094, 'n_eval_users': 1122, 'n_users_excluded_no_history': 640, 'rmse': 0.9373, 'mae': 0.7405}
+2026-11-13 06:50:24,782 | INFO    | task:evaluate    | src.orchestration | SUCCESS evaluate in 2.5s
+2026-11-13 06:50:24,834 | INFO    | MainThread       | src.orchestration | Run run_20261113_064902 finished: SUCCESS in 82.0s

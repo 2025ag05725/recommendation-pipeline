@@ -1,0 +1,30 @@
+2026-11-13 06:48:27,015 | INFO    | src.orchestration | START validate (attempt 1/2)
+2026-11-13 06:48:30,696 | INFO    | src.validation | Validation engine: great_expectations 1.24.1
+2026-11-13 06:48:30,734 | INFO    | src.validation | users         in=2010   valid=1992   rejected=18    (0.90%) warning_rows=71
+2026-11-13 06:48:30,742 | INFO    | src.validation | items         in=904    valid=900    rejected=4     (0.44%) warning_rows=19
+2026-11-13 06:48:30,858 | INFO    | src.validation | interactions  in=64571  valid=59459  rejected=5112  (7.92%) warning_rows=1914
+2026-11-13 06:48:30,858 | ERROR   | src.validation | [users] duplicate_user_id            ERROR   failed=10  (user_id must be unique (first occurrence kept))
+2026-11-13 06:48:30,858 | ERROR   | src.validation | [users] invalid_signup_date          ERROR   failed=8  (signup_date must be a parseable date)
+2026-11-13 06:48:30,858 | WARNING | src.validation | [users] missing_age                  WARNING failed=31  (age should not be null (imputed in preparation))
+2026-11-13 06:48:30,858 | WARNING | src.validation | [users] invalid_age                  WARNING failed=12  (age must be numeric in [13, 100])
+2026-11-13 06:48:30,859 | WARNING | src.validation | [users] missing_gender               WARNING failed=8  (gender should not be null)
+2026-11-13 06:48:30,859 | WARNING | src.validation | [users] missing_country              WARNING failed=20  (country should not be null)
+2026-11-13 06:48:30,859 | ERROR   | src.validation | [items] duplicate_item_id            ERROR   failed=4  (item_id must be unique (first occurrence kept))
+2026-11-13 06:48:30,859 | WARNING | src.validation | [items] missing_title                WARNING failed=4  (title should not be null)
+2026-11-13 06:48:30,859 | WARNING | src.validation | [items] missing_genres               WARNING failed=9  (genres should not be null)
+2026-11-13 06:48:30,859 | WARNING | src.validation | [items] invalid_release_year         WARNING failed=7  (release_year must be an integer in [1900, 2026])
+2026-11-13 06:48:30,859 | ERROR   | src.validation | [interactions] missing_user_id              ERROR   failed=130  (user_id must not be null)
+2026-11-13 06:48:30,859 | ERROR   | src.validation | [interactions] missing_rating               ERROR   failed=632  (rating must not be null)
+2026-11-13 06:48:30,859 | ERROR   | src.validation | [interactions] missing_timestamp            ERROR   failed=92  (timestamp must not be null)
+2026-11-13 06:48:30,859 | ERROR   | src.validation | [interactions] invalid_rating_type          ERROR   failed=131  (rating must be numeric)
+2026-11-13 06:48:30,859 | ERROR   | src.validation | [interactions] rating_out_of_range          ERROR   failed=508  (rating must be within [0.5, 5.0])
+2026-11-13 06:48:30,859 | ERROR   | src.validation | [interactions] rating_off_scale             ERROR   failed=124  (rating must be a multiple of 0.5)
+2026-11-13 06:48:30,860 | ERROR   | src.validation | [interactions] invalid_timestamp_format     ERROR   failed=448  (timestamp must be parseable)
+2026-11-13 06:48:30,860 | ERROR   | src.validation | [interactions] timestamp_in_future          ERROR   failed=326  (timestamp must not exceed reference date)
+2026-11-13 06:48:30,860 | ERROR   | src.validation | [interactions] timestamp_too_old            ERROR   failed=194  (timestamp must be >= 2015-01-01)
+2026-11-13 06:48:30,860 | ERROR   | src.validation | [interactions] orphan_user_id               ERROR   failed=818  (user_id must exist in valid users)
+2026-11-13 06:48:30,860 | ERROR   | src.validation | [interactions] orphan_item_id               ERROR   failed=651  (item_id must exist in valid items)
+2026-11-13 06:48:30,860 | ERROR   | src.validation | [interactions] interaction_before_signup    ERROR   failed=377  (timestamp must be >= the user's signup_date)
+2026-11-13 06:48:30,860 | ERROR   | src.validation | [interactions] exact_duplicate_row          ERROR   failed=1003  (identical (user,item,rating,timestamp) rows are duplicates (first kept))
+2026-11-13 06:48:30,860 | WARNING | src.validation | [interactions] duplicate_user_item_pair     WARNING failed=1914  (same user rated same item more than once (latest kept in preparation))
+2026-11-13 06:48:30,864 | INFO    | src.orchestration | SUCCESS validate in 3.8s

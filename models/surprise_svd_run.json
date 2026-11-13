@@ -1,0 +1,12 @@
+{
+  "run_id": "2feee5fe836845d3bb9e05cd86805be7",
+  "model": "surprise_svd",
+  "params": {
+    "model": "surprise_svd",
+    "library": "scikit-surprise SVD",
+    "n_factors": 20,
+    "reg_all": 0.02,
+    "n_epochs": 30,
+    "lr_all": 0.005
+  }
+}

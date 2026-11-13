@@ -1,0 +1,15 @@
+artifact_uri: file:///home/jaino/recommendation-pipeline/mlruns/476041280523956888/f1343ce4b4af426ea2d9015a2271bb24/artifacts
+end_time: 1794532960673
+entry_point_name: ''
+experiment_id: '476041280523956888'
+lifecycle_stage: active
+run_id: f1343ce4b4af426ea2d9015a2271bb24
+run_name: popularity
+run_uuid: f1343ce4b4af426ea2d9015a2271bb24
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1794532955938
+status: 3
+tags: []
+user_id: unknown

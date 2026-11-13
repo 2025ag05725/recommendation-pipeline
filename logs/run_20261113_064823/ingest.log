@@ -1,0 +1,7 @@
+2026-11-13 06:48:25,260 | INFO    | src.orchestration | START ingest (attempt 1/2)
+2026-11-13 06:48:26,568 | INFO    | src.ingestion.generate | Clean synthetic tables: users=2000 items=900 interactions=62996
+2026-11-13 06:48:26,970 | INFO    | src.ingestion.generate | Wrote raw CSVs to /home/jaino/recommendation-pipeline/data/raw (users=2010 items=904 interactions=64571)
+2026-11-13 06:48:26,978 | INFO    | src.ingestion | Ingested users         rows=2010   cols=['user_id', 'age', 'gender', 'country', 'signup_date']
+2026-11-13 06:48:26,980 | INFO    | src.ingestion | Ingested items         rows=904    cols=['item_id', 'title', 'genres', 'release_year']
+2026-11-13 06:48:27,013 | INFO    | src.ingestion | Ingested interactions  rows=64571  cols=['user_id', 'item_id', 'rating', 'timestamp']
+2026-11-13 06:48:27,014 | INFO    | src.orchestration | SUCCESS ingest in 1.8s

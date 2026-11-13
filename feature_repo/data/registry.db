@@ -1,0 +1,84 @@
+
+O
+/
+userplatform user"user_idJrecsys_pipeline
+èÊÙ×°¬ÍªèÊÙ×°¬Íª
+G
+'
+itemmovie"item_idJrecsys_pipeline
+èÊÙ×øÿÓªèÊÙ×øÿÓª
+F
+&
+__dummy"
+__dummy_idJrecsys_pipeline
+èÊÙ×àõÙªèÊÙ×àõÙª1"$46408ecc-fab7-4900-b92d-c1d3046b53e7*éÊÙ×ÈŞï´2†	
+Ó
+user_featuresrecsys_pipelineuser"
+user_activity_count"
+user_avg_rating"
+user_rating_std"
+user_like_ratio"
+user_tenure_days"$
+ user_days_since_last_interaction"
+user_age"
+user_age_group"
+user_gender"
+user_country"
+user_genre_affinity_Action"!
+user_genre_affinity_Adventure"!
+user_genre_affinity_Animation"!
+user_genre_affinity_Biography"
+user_genre_affinity_Comedy"
+user_genre_affinity_Crime"#
+user_genre_affinity_Documentary"
+user_genre_affinity_Drama"
+user_genre_affinity_Family"
+user_genre_affinity_Fantasy"
+user_genre_affinity_Horror"
+user_genre_affinity_Musical"
+user_genre_affinity_Mystery"
+user_genre_affinity_Romance"
+user_genre_affinity_Sci-Fi" 
+user_genre_affinity_Thriller"
+user_genre_affinity_Unknown"
+user_genre_affinity_War"
+user_genre_affinity_Western"
+user_preferred_genre2€†°–:¯event_timestampZOM/home/jaino/recommendation-pipeline/data/features/feast_user_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢user_features_source@b
+user_id.
+èÊÙ×ÀªéÊÙ×ˆ‘­
+€‡µÃüæ´Ç2“
+à
+item_featuresrecsys_pipelineitem"
+item_popularity_count"
+item_avg_rating"
+item_like_ratio"
+item_bayes_rating"$
+ item_days_since_last_interaction"
+item_age_years"
+item_num_genres"
+item_genre_Action"
+item_genre_Adventure"
+item_genre_Animation"
+item_genre_Biography"
+item_genre_Comedy"
+item_genre_Crime"
+item_genre_Documentary"
+item_genre_Drama"
+item_genre_Family"
+item_genre_Fantasy"
+item_genre_Horror"
+item_genre_Musical"
+item_genre_Mystery"
+item_genre_Romance"
+item_genre_Sci-Fi"
+item_genre_Thriller"
+item_genre_Unknown"
+item_genre_War"
+item_genre_Western2€†°–:¯event_timestampZOM/home/jaino/recommendation-pipeline/data/features/feast_item_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢item_features_source@b
+item_id.
+èÊÙ×ğ¯·ªéÊÙ×èÅØ´
+€‡µÃüæ´ÇbÁevent_timestampZOM/home/jaino/recommendation-pipeline/data/features/feast_item_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢item_features_sourceªrecsys_pipelinebÁevent_timestampZOM/home/jaino/recommendation-pipeline/data/features/feast_user_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢user_features_sourceªrecsys_pipelinez7
+recsys_pipeline$8c0031e4-97f5-464f-bfb6-1d221db67281Š1
+
+recsys_pipeline
+èÊÙ×àñ‡ªèÊÙ×àñ‡ª

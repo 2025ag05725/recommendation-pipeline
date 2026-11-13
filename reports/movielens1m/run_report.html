@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Pipeline run run_20261113_064902</title><style>
+body{font-family:Helvetica,Arial,sans-serif;margin:28px;color:#1f2933;background:#fff;max-width:1180px}
+h1{font-size:22px;margin:0 0 4px} .sub{color:#52606d;margin-bottom:16px}
+.v{display:inline-block;padding:3px 12px;border-radius:5px;color:#fff;font-weight:700;background:#2e9d5b}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:14px 0} th,td{border-bottom:1px solid #e4e7eb;padding:6px 8px;text-align:left;vertical-align:top} th{background:#f5f7fa}
+.b{color:#fff;padding:1px 8px;border-radius:4px;font-size:12px} .r{font-family:monospace;font-size:11px;color:#52606d}
+pre{background:#0f1720;color:#d6e2ee;padding:12px;border-radius:6px;font-size:12px;overflow:auto} img{max-width:100%}
+</style></head><body>
+<h1>Recommendation pipeline — run report</h1>
+<div class="sub">Run <b>run_20261113_064902</b> · started 2026-11-13T06:49:02 · wall time 82.03s · <span class="v">SUCCESS</span><br>engines: {&#x27;storage&#x27;: &#x27;parquet&#x27;, &#x27;validation&#x27;: &#x27;great_expectations&#x27;, &#x27;features&#x27;: &#x27;feast&#x27;, &#x27;tracking&#x27;: &#x27;mlflow&#x27;, &#x27;data_source&#x27;: &#x27;csv&#x27;, &#x27;surprise_model&#x27;: True}</div>
+<img src="figures/pipeline_dag.png" alt="DAG"><table><tr><th>Task</th><th>Stage</th><th>Status</th><th>Attempts</th><th>Seconds</th><th>Depends on</th><th>Result</th></tr><tr><td>ingest</td><td>Data Ingestion</td><td><span class='b' style='background:#2e9d5b'>success</span></td><td>1</td><td>0.48</td><td>—</td><td class='r'>{&#x27;users&#x27;: 6040, &#x27;items&#x27;: 3883, &#x27;interactions&#x27;: 1000209}</td></tr><tr><td>validate</td><td>Data Validation</td><td><span class='b' style='background:#2e9d5b'>success</span></td><td>1</td><td>26.09</td><td>ingest</td><td class='r'>{&#x27;gate_passed&#x27;: True, &#x27;users_rejected&#x27;: 0, &#x27;items_rejected&#x27;: 0, &#x27;interactions_rejected&#x27;: 0}</td></tr><tr><td>prepare</td><td>Data Preparation</td><td><span class='b' style='background:#2e9d5b'>success</span></td><td>1</td><td>1.74</td><td>validate</td><td class='r'>{&#x27;users_age_imputed&#x27;: 0, &#x27;users_gender_filled&#x27;: 0, &#x27;users_country_filled&#x27;: 6040, &#x27;items_title_filled&#x27</td></tr><tr><td>transform</td><td>Data Transformation</td><td><span class='b' style='background:#2e9d5b'>success</span></td><td>1</td><td>0.84</td><td>prepare</td><td class='r'>{&#x27;train&#x27;: 800164, &#x27;val&#x27;: 100020, &#x27;test&#x27;: 200045, &#x27;matrix_density&#x27;: 0.03412}</td></tr><tr><td>build_features</td><td>Feature Management</td><td><span class='b' style='background:#2e9d5b'>success</span></td><td>1</td><td>5.1</td><td>transform</td><td class='r'>{&#x27;feature_views&#x27;: [&#x27;user_features&#x27;, &#x27;item_features&#x27;], &#x27;materialized_as_of&#x27;: &#x27;2000-12-02 14:52:1</td></tr><tr><td>train_popularity</td><td>Model Training</td><td><span class='b' style='background:#2e9d5b'>success</span></td><td>1</td><td>0.89</td><td>build_features</td><td class='r'>{&#x27;model&#x27;: &#x27;popularity&#x27;, &#x27;run_id&#x27;: &#x27;cb81527e8d7e4ba8899a2595c658d79a&#x27;, &#x27;params&#x27;: {&#x27;mod</td></tr><tr><td>train_item_knn</td><td>Model Training</td><td><span class='b' style='background:#2e9d5b'>success</span></td><td>1</td><td>25.66</td><td>build_features</td><td class='r'>{&#x27;model&#x27;: &#x27;item_knn&#x27;, &#x27;run_id&#x27;: &#x27;6bfe70ffe6ce43eea6f4b683b0f6b3a8&#x27;, &#x27;params&#x27;: {&#x27;model</td></tr><tr><td>train_hybrid_svd</td><td>Model Training</td><td><span class='b' style='background:#2e9d5b'>success</span></td><td>1</td><td>43.81</td><td>build_features</td><td class='r'>{&#x27;model&#x27;: &#x27;hybrid_svd&#x27;, &#x27;run_id&#x27;: &#x27;0a7995765bc444c4880db4783a1f20e1&#x27;, &#x27;params&#x27;: {&#x27;mod</td></tr><tr><td>train_surprise_svd</td><td>Model Training</td><td><span class='b' style='background:#2e9d5b'>success</span></td><td>1</td><td>27.95</td><td>build_features</td><td class='r'>{&#x27;model&#x27;: &#x27;surprise_svd&#x27;, &#x27;run_id&#x27;: &#x27;775bcea58ff1428aad89f93f4cf03b2f&#x27;, &#x27;params&#x27;: {&#x27;m</td></tr><tr><td>evaluate</td><td>Model Evaluation</td><td><span class='b' style='background:#2e9d5b'>success</span></td><td>1</td><td>2.46</td><td>train_popularity, train_item_knn, train_hybrid_svd, train_surprise_svd</td><td class='r'>{&#x27;best_ndcg_model&#x27;: &#x27;item_knn&#x27;, &#x27;ndcg@10_popularity&#x27;: 0.2145, &#x27;ndcg@10_item_knn&#x27;: 0.25, &#x27;ndcg@1</td></tr></table>
+<h3>Execution log (excerpt)</h3><pre>06:49:04  src.orchestration | START ingest (attempt 1/2)
+06:49:04  src.orchestration | SUCCESS ingest in 0.5s
+06:49:04  src.orchestration | START validate (attempt 1/2)
+06:49:30  src.orchestration | SUCCESS validate in 26.1s
+06:49:30  src.orchestration | START prepare (attempt 1/2)
+06:49:32  src.orchestration | SUCCESS prepare in 1.7s
+06:49:32  src.orchestration | START transform (attempt 1/2)
+06:49:33  src.orchestration | SUCCESS transform in 0.8s
+06:49:33  src.orchestration | START build_features (attempt 1/2)
+06:49:38  src.orchestration | SUCCESS build_features in 5.1s
+06:49:38  src.orchestration | START train_hybrid_svd (attempt 1/2)
+06:49:38  src.orchestration | START train_item_knn (attempt 1/2)
+06:49:38  src.orchestration | START train_popularity (attempt 1/2)
+06:49:39  src.orchestration | SUCCESS train_popularity in 0.9s
+06:49:39  src.orchestration | START train_surprise_svd (attempt 1/2)
+06:50:04  src.orchestration | SUCCESS train_item_knn in 25.7s
+06:50:07  src.orchestration | SUCCESS train_surprise_svd in 27.9s
+06:50:22  src.orchestration | SUCCESS train_hybrid_svd in 43.8s
+06:50:22  src.orchestration | START evaluate (attempt 1/2)
+06:50:24  src.orchestration | SUCCESS evaluate in 2.5s</pre></body></html>

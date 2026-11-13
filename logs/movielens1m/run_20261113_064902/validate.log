@@ -1,0 +1,8 @@
+2026-11-13 06:49:04,725 | INFO    | src.orchestration | START validate (attempt 1/2)
+2026-11-13 06:49:30,355 | INFO    | src.validation | Validation engine: great_expectations 1.24.1
+2026-11-13 06:49:30,389 | INFO    | src.validation | users         in=6040   valid=6040   rejected=0     (0.00%) warning_rows=6040
+2026-11-13 06:49:30,400 | INFO    | src.validation | items         in=3883   valid=3883   rejected=0     (0.00%) warning_rows=251
+2026-11-13 06:49:30,796 | INFO    | src.validation | interactions  in=1000209 valid=1000209 rejected=0     (0.00%) warning_rows=0
+2026-11-13 06:49:30,796 | WARNING | src.validation | [users] missing_country              WARNING failed=6040  (country should not be null)
+2026-11-13 06:49:30,797 | WARNING | src.validation | [items] unknown_genre                WARNING failed=251  (every genre token must be in the genre vocabulary)
+2026-11-13 06:49:30,818 | INFO    | src.orchestration | SUCCESS validate in 26.1s

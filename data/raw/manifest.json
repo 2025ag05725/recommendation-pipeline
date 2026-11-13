@@ -1,0 +1,36 @@
+{
+  "users": {
+    "file": "data/raw/users.csv",
+    "rows": 2010,
+    "columns": [
+      "user_id",
+      "age",
+      "gender",
+      "country",
+      "signup_date"
+    ],
+    "md5": "5b43b8832b2fbb18cff6a2e5433177b7"
+  },
+  "items": {
+    "file": "data/raw/items.csv",
+    "rows": 904,
+    "columns": [
+      "item_id",
+      "title",
+      "genres",
+      "release_year"
+    ],
+    "md5": "abca9c1e4ad66abc174f3acc6e316b0c"
+  },
+  "interactions": {
+    "file": "data/raw/interactions.csv",
+    "rows": 64571,
+    "columns": [
+      "user_id",
+      "item_id",
+      "rating",
+      "timestamp"
+    ],
+    "md5": "349caaabdf62b902cc5662af335ec6a9"
+  }
+}

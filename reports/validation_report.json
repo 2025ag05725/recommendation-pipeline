@@ -1,0 +1,370 @@
+{
+  "engine": "great_expectations 1.24.1",
+  "quality_gate_max_error_rate": 0.15,
+  "gate_passed": true,
+  "tables": {
+    "users": {
+      "rows_in": 2010,
+      "rows_valid": 1992,
+      "rows_rejected": 18,
+      "error_rate": 0.009,
+      "warning_rows": 71
+    },
+    "items": {
+      "rows_in": 904,
+      "rows_valid": 900,
+      "rows_rejected": 4,
+      "error_rate": 0.0044,
+      "warning_rows": 19
+    },
+    "interactions": {
+      "rows_in": 64571,
+      "rows_valid": 59459,
+      "rows_rejected": 5112,
+      "error_rate": 0.0792,
+      "warning_rows": 1914
+    }
+  },
+  "checks": [
+    {
+      "table": "users",
+      "check": "missing_user_id",
+      "column": "user_id",
+      "severity": "error",
+      "description": "user_id must not be null",
+      "rows_checked": 2010,
+      "rows_failed": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "users",
+      "check": "invalid_user_id_type",
+      "column": "user_id",
+      "severity": "error",
+      "description": "user_id must be an integer",
+      "rows_checked": 2010,
+      "rows_failed": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "users",
+      "check": "duplicate_user_id",
+      "column": "user_id",
+      "severity": "error",
+      "description": "user_id must be unique (first occurrence kept)",
+      "rows_checked": 2010,
+      "rows_failed": 10,
+      "status": "FAIL"
+    },
+    {
+      "table": "users",
+      "check": "invalid_signup_date",
+      "column": "signup_date",
+      "severity": "error",
+      "description": "signup_date must be a parseable date",
+      "rows_checked": 2010,
+      "rows_failed": 8,
+      "status": "FAIL"
+    },
+    {
+      "table": "users",
+      "check": "future_signup_date",
+      "column": "signup_date",
+      "severity": "error",
+      "description": "signup_date must not be after reference date",
+      "rows_checked": 2010,
+      "rows_failed": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "users",
+      "check": "missing_age",
+      "column": "age",
+      "severity": "warning",
+      "description": "age should not be null (imputed in preparation)",
+      "rows_checked": 2010,
+      "rows_failed": 31,
+      "status": "WARN"
+    },
+    {
+      "table": "users",
+      "check": "invalid_age",
+      "column": "age",
+      "severity": "warning",
+      "description": "age must be numeric in [13, 100]",
+      "rows_checked": 2010,
+      "rows_failed": 12,
+      "status": "WARN"
+    },
+    {
+      "table": "users",
+      "check": "missing_gender",
+      "column": "gender",
+      "severity": "warning",
+      "description": "gender should not be null",
+      "rows_checked": 2010,
+      "rows_failed": 8,
+      "status": "WARN"
+    },
+    {
+      "table": "users",
+      "check": "invalid_gender",
+      "column": "gender",
+      "severity": "warning",
+      "description": "gender must be a known code",
+      "rows_checked": 2010,
+      "rows_failed": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "users",
+      "check": "missing_country",
+      "column": "country",
+      "severity": "warning",
+      "description": "country should not be null",
+      "rows_checked": 2010,
+      "rows_failed": 20,
+      "status": "WARN"
+    },
+    {
+      "table": "items",
+      "check": "missing_item_id",
+      "column": "item_id",
+      "severity": "error",
+      "description": "item_id must not be null",
+      "rows_checked": 904,
+      "rows_failed": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "items",
+      "check": "invalid_item_id_type",
+      "column": "item_id",
+      "severity": "error",
+      "description": "item_id must be an integer",
+      "rows_checked": 904,
+      "rows_failed": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "items",
+      "check": "duplicate_item_id",
+      "column": "item_id",
+      "severity": "error",
+      "description": "item_id must be unique (first occurrence kept)",
+      "rows_checked": 904,
+      "rows_failed": 4,
+      "status": "FAIL"
+    },
+    {
+      "table": "items",
+      "check": "missing_title",
+      "column": "title",
+      "severity": "warning",
+      "description": "title should not be null",
+      "rows_checked": 904,
+      "rows_failed": 4,
+      "status": "WARN"
+    },
+    {
+      "table": "items",
+      "check": "missing_genres",
+      "column": "genres",
+      "severity": "warning",
+      "description": "genres should not be null",
+      "rows_checked": 904,
+      "rows_failed": 9,
+      "status": "WARN"
+    },
+    {
+      "table": "items",
+      "check": "unknown_genre",
+      "column": "genres",
+      "severity": "warning",
+      "description": "every genre token must be in the genre vocabulary",
+      "rows_checked": 904,
+      "rows_failed": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "items",
+      "check": "invalid_release_year",
+      "column": "release_year",
+      "severity": "warning",
+      "description": "release_year must be an integer in [1900, 2026]",
+      "rows_checked": 904,
+      "rows_failed": 7,
+      "status": "WARN"
+    },
+    {
+      "table": "interactions",
+      "check": "missing_user_id",
+      "column": "user_id",
+      "severity": "error",
+      "description": "user_id must not be null",
+      "rows_checked": 64571,
+      "rows_failed": 130,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "missing_item_id",
+      "column": "item_id",
+      "severity": "error",
+      "description": "item_id must not be null",
+      "rows_checked": 64571,
+      "rows_failed": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "interactions",
+      "check": "missing_rating",
+      "column": "rating",
+      "severity": "error",
+      "description": "rating must not be null",
+      "rows_checked": 64571,
+      "rows_failed": 632,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "missing_timestamp",
+      "column": "timestamp",
+      "severity": "error",
+      "description": "timestamp must not be null",
+      "rows_checked": 64571,
+      "rows_failed": 92,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "invalid_user_id_type",
+      "column": "user_id",
+      "severity": "error",
+      "description": "user_id must be an integer",
+      "rows_checked": 64571,
+      "rows_failed": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "interactions",
+      "check": "invalid_item_id_type",
+      "column": "item_id",
+      "severity": "error",
+      "description": "item_id must be an integer",
+      "rows_checked": 64571,
+      "rows_failed": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "interactions",
+      "check": "invalid_rating_type",
+      "column": "rating",
+      "severity": "error",
+      "description": "rating must be numeric",
+      "rows_checked": 64571,
+      "rows_failed": 131,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "rating_out_of_range",
+      "column": "rating",
+      "severity": "error",
+      "description": "rating must be within [0.5, 5.0]",
+      "rows_checked": 64571,
+      "rows_failed": 508,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "rating_off_scale",
+      "column": "rating",
+      "severity": "error",
+      "description": "rating must be a multiple of 0.5",
+      "rows_checked": 64571,
+      "rows_failed": 124,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "invalid_timestamp_format",
+      "column": "timestamp",
+      "severity": "error",
+      "description": "timestamp must be parseable",
+      "rows_checked": 64571,
+      "rows_failed": 448,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "timestamp_in_future",
+      "column": "timestamp",
+      "severity": "error",
+      "description": "timestamp must not exceed reference date",
+      "rows_checked": 64571,
+      "rows_failed": 326,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "timestamp_too_old",
+      "column": "timestamp",
+      "severity": "error",
+      "description": "timestamp must be >= 2015-01-01",
+      "rows_checked": 64571,
+      "rows_failed": 194,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "orphan_user_id",
+      "column": "user_id",
+      "severity": "error",
+      "description": "user_id must exist in valid users",
+      "rows_checked": 64571,
+      "rows_failed": 818,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "orphan_item_id",
+      "column": "item_id",
+      "severity": "error",
+      "description": "item_id must exist in valid items",
+      "rows_checked": 64571,
+      "rows_failed": 651,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "interaction_before_signup",
+      "column": "timestamp",
+      "severity": "error",
+      "description": "timestamp must be >= the user's signup_date",
+      "rows_checked": 64571,
+      "rows_failed": 377,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "exact_duplicate_row",
+      "column": "user_id",
+      "severity": "error",
+      "description": "identical (user,item,rating,timestamp) rows are duplicates (first kept)",
+      "rows_checked": 64571,
+      "rows_failed": 1003,
+      "status": "FAIL"
+    },
+    {
+      "table": "interactions",
+      "check": "duplicate_user_item_pair",
+      "column": "item_id",
+      "severity": "warning",
+      "description": "same user rated same item more than once (latest kept in preparation)",
+      "rows_checked": 64571,
+      "rows_failed": 1914,
+      "status": "WARN"
+    }
+  ]
+}

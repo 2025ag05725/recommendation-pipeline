@@ -1,0 +1,4 @@
+2026-11-13 06:49:38,503 | INFO    | src.orchestration | START train_popularity (attempt 1/2)
+2026-11-13 06:49:38,589 | INFO    | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-movielens-1m)
+2026-11-13 06:49:39,392 | INFO    | src.training | Trained popularity with {'model': 'popularity', 'ranking': 'item_popularity_count (+ bayes tie-break)', 'rating_head': 'item_bayes_rating'} in 0.9s (tracker run cb81527e8d7e4ba8899a2595c658d79a)
+2026-11-13 06:49:39,393 | INFO    | src.orchestration | SUCCESS train_popularity in 0.9s

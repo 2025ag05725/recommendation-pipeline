@@ -1,0 +1,4 @@
+2026-11-13 06:48:33,958 | INFO    | src.orchestration | START train_hybrid_svd (attempt 1/2)
+2026-11-13 06:48:34,022 | INFO    | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-pipeline)
+2026-11-13 06:48:48,185 | INFO    | src.training | Trained hybrid_svd with {'model': 'hybrid_svd', 'k_implicit': 16, 'k_explicit': 16, 'alpha': 0.5, 'bias_reg': 10} in 14.2s (tracker run b8cbfa53659e42f8b6ca44ce55533da9)
+2026-11-13 06:48:48,186 | INFO    | src.orchestration | SUCCESS train_hybrid_svd in 14.2s

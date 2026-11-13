@@ -1,0 +1,4 @@
+2026-11-13 06:49:39,395 | INFO    | src.orchestration | START train_surprise_svd (attempt 1/2)
+2026-11-13 06:49:39,484 | INFO    | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-movielens-1m)
+2026-11-13 06:50:07,340 | INFO    | src.training | Trained surprise_svd with {'model': 'surprise_svd', 'library': 'scikit-surprise SVD', 'n_factors': 20, 'reg_all': 0.02, 'n_epochs': 30, 'lr_all': 0.005} in 27.9s (tracker run 775bcea58ff1428aad89f93f4cf03b2f)
+2026-11-13 06:50:07,341 | INFO    | src.orchestration | SUCCESS train_surprise_svd in 27.9s

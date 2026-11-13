@@ -1,0 +1,11 @@
+{
+  "run_id": "71da82746bf1438db37b59869b41a078",
+  "model": "hybrid_svd",
+  "params": {
+    "model": "hybrid_svd",
+    "k_implicit": 16,
+    "k_explicit": 16,
+    "alpha": 0.0,
+    "bias_reg": 10
+  }
+}

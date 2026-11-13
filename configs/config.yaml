@@ -1,0 +1,116 @@
+# Central configuration for the recommendation pipeline.
+# All paths are relative to the project root.
+seed: 42
+reference_date: "2026-01-01"   # fixed "now" so validation (future-date check) is reproducible
+
+paths:
+  raw: data/raw
+  processed: data/processed
+  features: data/features
+  errors: data/errors
+  models: models
+  reports: reports
+  logs: logs
+
+genre_vocabulary:              # canonical genres accepted by validation/preparation (union of synthetic + MovieLens)
+  [Action, Adventure, Animation, Biography, Children, Comedy, Crime, Documentary, Drama, Family, Fantasy,
+   Film-Noir, Horror, IMAX, Musical, Mystery, Romance, Sci-Fi, Thriller, War, Western]
+
+storage:
+  format: parquet              # parquet (default, needs pyarrow) | csv (fallback for machines without pyarrow)
+                               # raw input files in data/raw always stay CSV (that is the source format)
+
+ingestion:
+  source: synthetic            # synthetic | csv  (csv = use files already placed in data/raw)
+  regenerate: false            # true = regenerate synthetic data even if files exist
+
+synthetic_data:                # MovieLens-style movie platform
+  n_users: 2000
+  n_items: 900
+  target_interactions: 60000
+  start_date: "2023-01-01"
+  end_date: "2025-12-31"
+  latent_dim: 8
+  taste_strength: 1.0          # how strongly taste drives which items a user watches
+  dirty:                       # fraction of rows corrupted per defect (documented in README)
+    users:
+      missing_age: 0.015
+      invalid_age: 0.006
+      missing_country: 0.010
+      missing_gender: 0.004
+      bad_signup_date: 0.004
+      duplicate_rows: 0.005
+    items:
+      missing_title: 0.005
+      missing_genres: 0.010
+      invalid_year: 0.008
+      duplicate_rows: 0.005
+    interactions:
+      missing_rating: 0.010
+      invalid_rating: 0.012
+      bad_timestamp: 0.007
+      future_timestamp: 0.005
+      ancient_timestamp: 0.003
+      before_signup: 0.003
+      orphan_user: 0.010
+      orphan_item: 0.010
+      missing_user: 0.002
+      exact_duplicates: 0.015
+      conflicting_duplicates: 0.010
+
+validation:
+  engine: great_expectations   # great_expectations | custom (lightweight fallback, no extra dependency)
+  rating_min: 0.5
+  rating_max: 5.0
+  rating_step: 0.5
+  age_min: 13
+  age_max: 100
+  min_valid_date: "2015-01-01"
+  release_year_min: 1900
+  max_error_rate: 0.15         # quality gate: fail pipeline if a table loses more than this share of rows
+
+split:
+  test_fraction: 0.20          # newest 20% of interactions -> test
+  val_fraction: 0.10           # next-newest 10% -> validation (hyper-parameter tuning only)
+
+features:
+  engine: feast                # feast | local (local = pandas tables only, no Feast registry/online store)
+  feast_repo: feature_repo     # Feast repository directory (registry + online store)
+  like_threshold: 4.0          # rating >= threshold counts as "liked"
+  bayes_prior_strength: 10     # shrinkage for item_bayes_rating
+
+evaluation:
+  k: 10
+  relevance_threshold: 4.0     # test interactions with rating >= threshold are relevant
+
+models:
+  popularity: {}
+  item_knn:
+    grid:
+      n_neighbors: [20, 50, 100]
+      shrink: [5, 20]
+  hybrid_svd:
+    grid:
+      k_implicit: [16, 32, 64]
+      alpha: [0.0, 0.5, 1.0]     # weight of content (genre-affinity) signal
+      k_explicit: [8, 16]
+    bias_reg: 10
+  surprise_svd:                # scikit-surprise SVD (explicit ratings); ranking = predicted rating
+    enabled: true
+    tune_metric: val_rmse      # chosen by validation RMSE (lower is better)
+    n_epochs: 30
+    lr_all: 0.005
+    grid:
+      n_factors: [20, 50]
+      reg_all: [0.02, 0.1]
+
+tracking:
+  backend: mlflow              # mlflow (default) | auto (MLflow if installed else local JSON) | local
+  experiment: recsys-pipeline
+  local_dir: mlruns_local      # only used by the local JSON fallback
+  mlflow_uri: null             # null = ./mlruns file store ; or http://127.0.0.1:5000 for an MLflow server
+
+orchestration:
+  max_workers: 3               # independent tasks in the same DAG level run in parallel
+  retries: 1
+  retry_delay_seconds: 1

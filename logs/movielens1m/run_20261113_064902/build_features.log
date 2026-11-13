@@ -1,0 +1,5 @@
+2026-11-13 06:49:33,399 | INFO    | src.orchestration | START build_features (attempt 1/2)
+2026-11-13 06:49:38,457 | INFO    | src.features.feast | Feast: applied entities/feature views and materialised to online store (as_of=2000-12-02 14:52:18+00:00)
+2026-11-13 06:49:38,495 | INFO    | src.features.feast | Feast parity check passed: {'user_features': '50 entities x 29 features identical', 'item_features': '50 entities x 25 features identical'}
+2026-11-13 06:49:38,499 | INFO    | src.features | Feature store: 6040 user rows x 29 cols, 3883 item rows x 25 cols; catalog entries=23
+2026-11-13 06:49:38,500 | INFO    | src.orchestration | SUCCESS build_features in 5.1s

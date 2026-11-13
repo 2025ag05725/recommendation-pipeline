@@ -1,0 +1,5 @@
+2026-11-13 06:49:04,247 | INFO    | src.orchestration | START ingest (attempt 1/2)
+2026-11-13 06:49:04,255 | INFO    | src.ingestion | Ingested users         rows=6040   cols=['user_id', 'age', 'gender', 'country', 'signup_date']
+2026-11-13 06:49:04,262 | INFO    | src.ingestion | Ingested items         rows=3883   cols=['item_id', 'title', 'genres', 'release_year']
+2026-11-13 06:49:04,708 | INFO    | src.ingestion | Ingested interactions  rows=1000209 cols=['user_id', 'item_id', 'rating', 'timestamp']
+2026-11-13 06:49:04,724 | INFO    | src.orchestration | SUCCESS ingest in 0.5s

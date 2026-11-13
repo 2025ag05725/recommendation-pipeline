@@ -1,0 +1,7 @@
+2026-11-13 06:50:22,321 | INFO    | src.orchestration | START evaluate (attempt 1/2)
+2026-11-13 06:50:22,341 | INFO    | src.tracking | Experiment tracker backend: mlflow (experiment=recsys-movielens-1m)
+2026-11-13 06:50:22,737 | INFO    | src.evaluation | popularity  {'precision@10': 0.1996, 'recall@10': 0.0493, 'ndcg@10': 0.2145, 'coverage': 0.0353, 'diversity': 0.6524, 'n_eval_users': 1122, 'n_users_excluded_no_history': 640, 'rmse': 0.9688, 'mae': 0.7715}
+2026-11-13 06:50:23,134 | INFO    | src.evaluation | item_knn    {'precision@10': 0.2292, 'recall@10': 0.0588, 'ndcg@10': 0.25, 'coverage': 0.0592, 'diversity': 0.6926, 'n_eval_users': 1122, 'n_users_excluded_no_history': 640}
+2026-11-13 06:50:23,584 | INFO    | src.evaluation | hybrid_svd  {'precision@10': 0.2269, 'recall@10': 0.0671, 'ndcg@10': 0.2497, 'coverage': 0.129, 'diversity': 0.6625, 'n_eval_users': 1122, 'n_users_excluded_no_history': 640, 'rmse': 0.9425, 'mae': 0.7459}
+2026-11-13 06:50:24,027 | INFO    | src.evaluation | surprise_svd {'precision@10': 0.132, 'recall@10': 0.0364, 'ndcg@10': 0.1392, 'coverage': 0.1586, 'diversity': 0.7094, 'n_eval_users': 1122, 'n_users_excluded_no_history': 640, 'rmse': 0.9373, 'mae': 0.7405}
+2026-11-13 06:50:24,782 | INFO    | src.orchestration | SUCCESS evaluate in 2.5s

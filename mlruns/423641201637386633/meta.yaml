@@ -1,0 +1,6 @@
+artifact_location: file:///home/jaino/recommendation-pipeline/mlruns/423641201637386633
+creation_time: 1794532705259
+experiment_id: '423641201637386633'
+last_update_time: 1794532705259
+lifecycle_stage: active
+name: recsys-pipeline

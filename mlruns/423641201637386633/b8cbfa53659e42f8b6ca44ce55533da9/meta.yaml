@@ -1,0 +1,15 @@
+artifact_uri: file:///home/jaino/recommendation-pipeline/mlruns/423641201637386633/b8cbfa53659e42f8b6ca44ce55533da9/artifacts
+end_time: 1794532728818
+entry_point_name: ''
+experiment_id: '423641201637386633'
+lifecycle_stage: active
+run_id: b8cbfa53659e42f8b6ca44ce55533da9
+run_name: hybrid_svd
+run_uuid: b8cbfa53659e42f8b6ca44ce55533da9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1794532714022
+status: 3
+tags: []
+user_id: unknown

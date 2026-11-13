@@ -1,0 +1,10 @@
+{
+  "run_id": "a17d8522a6df482e8b0e11d2c0558e08",
+  "model": "item_knn",
+  "params": {
+    "model": "item_knn",
+    "n_neighbors": 100,
+    "shrink": 5,
+    "similarity": "cosine(liked)"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "users": {
+    "file": "data/movielens1m/raw/users.csv",
+    "rows": 6040,
+    "columns": [
+      "user_id",
+      "age",
+      "gender",
+      "country",
+      "signup_date"
+    ],
+    "md5": "8022ffb519ad287ef345dca5f22f209b"
+  },
+  "items": {
+    "file": "data/movielens1m/raw/items.csv",
+    "rows": 3883,
+    "columns": [
+      "item_id",
+      "title",
+      "genres",
+      "release_year"
+    ],
+    "md5": "5c84b3dd433df10104b2bbb8eb4dc6e6"
+  },
+  "interactions": {
+    "file": "data/movielens1m/raw/interactions.csv",
+    "rows": 1000209,
+    "columns": [
+      "user_id",
+      "item_id",
+      "rating",
+      "timestamp"
+    ],
+    "md5": "74b079eb615c32a847fc88379747653c"
+  }
+}

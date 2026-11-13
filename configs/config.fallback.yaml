@@ -1,0 +1,11 @@
+# Same pipeline WITHOUT the third-party tools (CSV storage, lightweight validation, local feature tables,
+# no Surprise, JSON tracker). For quick checks on machines where they cannot be installed - NOT for the submission.
+#   python run_pipeline.py --config configs/config.fallback.yaml
+extends: config.yaml
+
+storage: {format: csv}
+validation: {engine: custom}
+features: {engine: local}
+tracking: {backend: local}
+models:
+  surprise_svd: {enabled: false}

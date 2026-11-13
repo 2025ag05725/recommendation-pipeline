@@ -1,0 +1,21 @@
+# MovieLens 1M run (1M ratings, ~6k users, ~3.7k movies, has gender + age bracket). Same time-based split as every other run.
+# Own folders / Feast repo / MLflow experiment, so it never overwrites the ml-latest-small ("movielens") or synthetic results.
+#
+#   python scripts/prepare_movielens.py --dataset ml-1m --out data/movielens1m/raw
+#   python run_pipeline.py --config configs/config.movielens1m.yaml
+extends: config.movielens.yaml
+
+paths:
+  raw: data/movielens1m/raw
+  processed: data/movielens1m/processed
+  features: data/movielens1m/features
+  errors: data/movielens1m/errors
+  models: models/movielens1m
+  reports: reports/movielens1m
+  logs: logs/movielens1m
+
+features:
+  feast_repo: feature_repo_movielens1m
+
+tracking:
+  experiment: recsys-movielens-1m

@@ -1,0 +1,3 @@
+2026-11-13 06:48:30,865 | INFO    | src.orchestration | START prepare (attempt 1/2)
+2026-11-13 06:48:31,033 | INFO    | src.preparation | Prepared: {'users_age_imputed': 42, 'users_gender_filled': 8, 'users_country_filled': 20, 'items_title_filled': 4, 'items_genres_unknown': 9, 'items_year_imputed': 7, 'interactions_duplicate_pairs_dropped': 442, 'users': 1992, 'items': 900, 'interactions': 59017}
+2026-11-13 06:48:31,034 | INFO    | src.orchestration | SUCCESS prepare in 0.2s

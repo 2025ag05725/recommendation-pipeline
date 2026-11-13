@@ -1,0 +1,12 @@
+{
+  "users_age_imputed": 0,
+  "users_gender_filled": 0,
+  "users_country_filled": 6040,
+  "items_title_filled": 0,
+  "items_genres_unknown": 0,
+  "items_year_imputed": 0,
+  "interactions_duplicate_pairs_dropped": 0,
+  "users": 6040,
+  "items": 3883,
+  "interactions": 1000209
+}

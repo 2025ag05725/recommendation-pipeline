@@ -1,0 +1,15 @@
+artifact_uri: file:///home/jaino/recommendation-pipeline/mlruns/423641201637386633/5cd85a7740814867b80c30be5c4cca5a/artifacts
+end_time: 1794532728575
+entry_point_name: ''
+experiment_id: '423641201637386633'
+lifecycle_stage: active
+run_id: 5cd85a7740814867b80c30be5c4cca5a
+run_name: item_knn
+run_uuid: 5cd85a7740814867b80c30be5c4cca5a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1794532714044
+status: 3
+tags: []
+user_id: unknown

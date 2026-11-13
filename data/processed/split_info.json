@@ -1,0 +1,26 @@
+{
+  "val_cutoff": "2025-09-01T06:52:13",
+  "test_cutoff": "2025-10-12T17:14:36",
+  "rows": {
+    "train_core": 41311,
+    "val": 5902,
+    "train": 47213,
+    "test": 11804
+  },
+  "train_time_range": [
+    "2023-01-06T00:02:26",
+    "2025-10-12T17:10:08"
+  ],
+  "test_time_range": [
+    "2025-10-12T17:14:36",
+    "2025-12-30T23:45:51"
+  ],
+  "test_users": 1758,
+  "test_users_unseen_in_train": 1,
+  "test_items_unseen_in_train": 0,
+  "matrix_shape": [
+    1992,
+    900
+  ],
+  "matrix_density": 0.02633
+}
